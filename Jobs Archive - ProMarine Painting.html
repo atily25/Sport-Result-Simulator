@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!-- saved from url=(0071)file:///C:/Users/Dell_7020/Downloads/Search%20-%20Microsoft%20Bing.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title _msttexthash="798109" _msthash="0">Jobs Archive - ProMarine Painting</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    input, textarea, select, button { display: block; margin-bottom: 10px; width: 300px; padding: 5px; }
+    table { border-collapse: collapse; margin-top: 20px; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    #facturaModal {
+      display: none;
+      border: 1px solid #ccc;
+      padding: 20px;
+      background: #f9f9f9;
+      margin-top: 20px;
+    }
+    .factura-boton {
+      padding: 5px 10px;
+      background: #2196f3;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .factura-boton:hover {
+      background: #1976d2;
+    }
+  </style>
+  <!-- jsPDF para crear el PDF -->
+  <script src="./Jobs Archive - ProMarine Painting_files/jspdf.umd.min.js.download"></script>
+</head>
+<body>
+
+  <h1 _msttexthash="170040" _msthash="1">Log Paint Job</h1>
+
+  <form id="trabajoForm">
+    <input type="text" id="cliente" placeholder="Client Name" required="" _mstplaceholder="315666" _msthash="2">
+    <input type="date" id="fecha" required="">
+    <input type="text" id="vehiculo" placeholder="Vehicle or surface" required="" _mstplaceholder="437450" _msthash="3">
+    <input type="text" id="pintura" placeholder="Color or type of paint" required="" _mstplaceholder="427947" _msthash="4">
+    <textarea id="descripcion" placeholder="Job Description" required="" _mstplaceholder="514566" _msthash="5"></textarea>
+    <input type="number" id="costo" placeholder="Cost" required="" _mstplaceholder="62049" _msthash="6">
+    <select id="estado">
+      <option value="pendiente" _msttexthash="133822" _msthash="7">Earring</option>
+      <option value="en proceso" _msttexthash="136604" _msthash="8">In process</option>
+      <option value="terminado" _msttexthash="134069" _msthash="9">Finished</option>
+    </select>
+    <button type="submit" _msttexthash="113074" _msthash="10">Save Work</button>
+  </form>
+
+  <h2 _msttexthash="129441" _msthash="11">Saved Jobs</h2>
+  <table id="trabajosTabla">
+    <thead>
+      <tr>
+        <th _msttexthash="117494" _msthash="12">Customer</th>
+        <th _msttexthash="42978" _msthash="13">Date</th>
+        <th _msttexthash="92222" _msthash="14">Vehicle</th>
+        <th _msttexthash="114257" _msthash="15">Painting</th>
+        <th _msttexthash="183612" _msthash="16">Description</th>
+        <th _msttexthash="46176" _msthash="17">Cost</th>
+        <th _msttexthash="60489" _msthash="18">State</th>
+        <th _msttexthash="93847" _msthash="19">Invoice</th>
+      </tr>
+    </thead>
+    <tbody><tr>
+          <td _msttexthash="42796" _msthash="20">Dani</td>
+          <td _msttexthash="73970" _msthash="21">2025-04-16</td>
+          <td _msttexthash="79495" _msthash="22">Toyota</td>
+          <td _msttexthash="56758" _msthash="23">Black</td>
+          <td _msttexthash="157898" _msthash="24">PAint D. Door</td>
+          <td _msttexthash="21125" _msthash="25">$450</td>
+          <td _msttexthash="114660" _msthash="26">finished</td>
+          <td><button class="factura-boton" onclick="verFactura(1744949201445)" _msttexthash="177164" _msthash="27">View Invoice</button></td>
+        </tr><tr>
+          <td _msttexthash="44746" _msthash="28">John</td>
+          <td _msttexthash="73970" _msthash="29">2025-04-16</td>
+          <td _msttexthash="218049" _msthash="30">Fiber Glass Job</td>
+          <td _msttexthash="267267" _msthash="31">Polyester resin</td>
+          <td _msttexthash="363584" _msthash="32">FRP Pipe For Glassing</td>
+          <td _msttexthash="28821" _msthash="33">$2580</td>
+          <td _msttexthash="114660" _msthash="34">finished</td>
+          <td><button class="factura-boton" onclick="verFactura(1744951206092)" _msttexthash="177164" _msthash="35">View Invoice</button></td>
+        </tr></tbody>
+  </table>
+
+  <!-- Sección de Factura -->
+  <div id="facturaModal" _msthidden="7">
+    <div style="text-align: center; margin-bottom: 20px;" _msthidden="3">
+      <h2 style="margin: 0;" _msttexthash="342147" _msthidden="1" _msthash="36">ProMarine Painting</h2>
+      <p style="margin: 0;" _msttexthash="371917" _msthidden="1" _msthash="37">Av. Reforma 123, Ciudad</p>
+      <p style="margin: 0;" _msttexthash="1216241" _msthidden="1" _msthash="38">Tel: 555-123-4567 | contacto@promarine.com</p>
+      <hr style="margin-top: 10px;">
+    </div>
+    <h3 style="text-align:center;" _msttexthash="307398" _msthidden="1" _msthash="39">Factura de Trabajo</h3>
+    <div id="facturaContenido"></div>
+    <button onclick="window.print()" _msttexthash="284284" _msthidden="1" _msthash="40">Imprimir Factura</button>
+    <button onclick="descargarPDF()" _msttexthash="525460" _msthidden="1" _msthash="41">Descargar Factura como PDF</button>
+    <button onclick="cerrarFactura()" _msttexthash="76414" _msthidden="1" _msthash="42">Cerrar</button>
+  </div>
+
+  <script>
+    document.getElementById('trabajoForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const trabajo = {
+        id: Date.now(),
+        cliente: document.getElementById('cliente').value,
+        fecha: document.getElementById('fecha').value,
+        vehiculo: document.getElementById('vehiculo').value,
+        pintura: document.getElementById('pintura').value,
+        descripcion: document.getElementById('descripcion').value,
+        costo: document.getElementById('costo').value,
+        estado: document.getElementById('estado').value
+      };
+
+      guardarTrabajo(trabajo);
+      mostrarTrabajos();
+      this.reset(); // limpia el formulario
+    });
+
+    function guardarTrabajo(trabajo) {
+      const trabajos = JSON.parse(localStorage.getItem('trabajosPintura')) || [];
+      trabajos.push(trabajo);
+      localStorage.setItem('trabajosPintura', JSON.stringify(trabajos));
+    }
+
+    function mostrarTrabajos() {
+      const tabla = document.querySelector('#trabajosTabla tbody');
+      tabla.innerHTML = '';
+
+      const trabajos = JSON.parse(localStorage.getItem('trabajosPintura')) || [];
+
+      trabajos.forEach(t => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td>${t.cliente}</td>
+          <td>${t.fecha}</td>
+          <td>${t.vehiculo}</td>
+          <td>${t.pintura}</td>
+          <td>${t.descripcion}</td>
+          <td>$${t.costo}</td>
+          <td>${t.estado}</td>
+          <td><button class="factura-boton" onclick="verFactura(${t.id})">Ver Factura</button></td>
+        `;
+        tabla.appendChild(fila);
+      });
+    }
+
+    function verFactura(id) {
+      const trabajos = JSON.parse(localStorage.getItem('trabajosPintura')) || [];
+      const trabajo = trabajos.find(t => t.id === id);
+
+      const facturaHTML = `
+        <p><strong>Cliente:</strong> ${trabajo.cliente}</p>
+        <p><strong>Fecha:</strong> ${trabajo.fecha}</p>
+        <p><strong>Vehículo:</strong> ${trabajo.vehiculo}</p>
+        <p><strong>Pintura:</strong> ${trabajo.pintura}</p>
+        <p><strong>Descripción:</strong> ${trabajo.descripcion}</p>
+        <p><strong>Estado:</strong> ${trabajo.estado}</p>
+        <p><strong>Total a pagar:</strong> $${trabajo.costo}</p>
+        <hr>
+        <p><em>Gracias por confiar en nuestro taller.</em></p>
+      `;
+
+      document.getElementById('facturaContenido').innerHTML = facturaHTML;
+      document.getElementById('facturaModal').style.display = 'block';
+    }
+
+    function cerrarFactura() {
+      document.getElementById('facturaModal').style.display = 'none';
+    }
+
+    // Función para descargar la factura en formato PDF
+    function descargarPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const contenidoFactura = document.getElementById('facturaContenido').innerHTML;
+      doc.html(contenidoFactura, {
+        callback: function (doc) {
+          doc.save('factura_promarine.pdf');
+        },
+        margin: [10, 10, 10, 10]
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', mostrarTrabajos);
+  </script>
+
+
+</body></html>
