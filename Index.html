@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador Deportivo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .contenedor {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h1 {
+      color: #007aff;
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      background-color: #007aff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005bb5;
+    }
+    #resultado {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Simulador de Partido</h1>
+    <input type="text" id="equipo1" placeholder="Nombre del Equipo 1" />
+    <input type="text" id="equipo2" placeholder="Nombre del Equipo 2" />
+    <br />
+    <button onclick="simular()">Simular Resultado</button>
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    function simular() {
+      const equipo1 = document.getElementById('equipo1').value || 'Equipo 1';
+      const equipo2 = document.getElementById('equipo2').value || 'Equipo 2';
+      const goles1 = Math.floor(Math.random() * 6); // 0 a 5
+      const goles2 = Math.floor(Math.random() * 6);
+      document.getElementById('resultado').innerText =
+        `${equipo1} ${goles1} - ${goles2} ${equipo2}`;
+    }
+  </script>
+</body>
+</html>
